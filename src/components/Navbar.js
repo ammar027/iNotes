@@ -1,22 +1,56 @@
-import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSun, faMoon, faAdjust } from '@fortawesome/free-solid-svg-icons';
+import React, { useState, useEffect } from "react";
+import { NavLink } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSun, faMoon, faAdjust } from "@fortawesome/free-solid-svg-icons";
 
-const Navbar = () => {
-  const [theme, setTheme] = useState('light');
-  const categories = ['sports', 'news', 'entertainment'];
+const Navbar = ({ selectedCountry, onCountryChange }) => {
+  const savedTheme = localStorage.getItem("theme") || "system";
+  const [theme, setTheme] = useState(savedTheme);
+
+  useEffect(() => {
+    const applyTheme = () => {
+      document.body.classList.remove("light-mode", "dark-mode", "system-mode");
+      if (theme === "system") {
+        const prefersDarkScheme = window.matchMedia(
+          "(prefers-color-scheme: dark)"
+        ).matches;
+        document.body.classList.add(
+          prefersDarkScheme ? "dark-mode" : "light-mode"
+        );
+      } else {
+        document.body.classList.add(`${theme}-mode`);
+      }
+      localStorage.setItem("theme", theme);
+    };
+
+    applyTheme();
+
+    const handleSystemThemeChange = (e) => {
+      if (theme === "system") {
+        const prefersDarkScheme = e.matches;
+        document.body.classList.toggle("dark-mode", prefersDarkScheme);
+        document.body.classList.toggle("light-mode", !prefersDarkScheme);
+      }
+    };
+
+    const mediaQueryList = window.matchMedia("(prefers-color-scheme: dark)");
+    mediaQueryList.addEventListener("change", handleSystemThemeChange);
+
+    return () => {
+      mediaQueryList.removeEventListener("change", handleSystemThemeChange);
+    };
+  }, [theme]);
 
   const handleThemeChange = (e) => {
     setTheme(e.target.value);
-    // Add logic to apply the theme
   };
+
 
   return (
     <nav className={`navbar navbar-expand-lg ${theme}-mode navbar-sticky`}>
       <div className="container-fluid">
         <NavLink className="navbar-brand mx-2" to="/">
-          NR
+          iNotebook
         </NavLink>
         <button
           className="navbar-toggler"
@@ -34,29 +68,17 @@ const Navbar = () => {
             <li className="nav-item">
               <NavLink
                 className={({ isActive }) =>
-                  isActive ? 'nav-link active' : 'nav-link'
+                  isActive ? "nav-link active" : "nav-link"
                 }
                 to="/"
               >
                 Home
               </NavLink>
             </li>
-            {categories.map((category) => (
-              <li className="nav-item" key={category}>
-                <NavLink
-                  className={({ isActive }) =>
-                    isActive ? 'nav-link active' : 'nav-link'
-                  }
-                  to={`/${category}`}
-                >
-                  {category.charAt(0).toUpperCase() + category.slice(1)}
-                </NavLink>
-              </li>
-            ))}
             <li className="nav-item">
               <NavLink
                 className={({ isActive }) =>
-                  isActive ? 'nav-link active' : 'nav-link'
+                  isActive ? "nav-link active" : "nav-link"
                 }
                 to="/about"
               >
@@ -71,7 +93,7 @@ const Navbar = () => {
             id="light"
             name="theme"
             value="light"
-            checked={theme === 'light'}
+            checked={theme === "light"}
             onChange={handleThemeChange}
           />
           <label htmlFor="light">
@@ -83,7 +105,7 @@ const Navbar = () => {
             id="system"
             name="theme"
             value="system"
-            checked={theme === 'system'}
+            checked={theme === "system"}
             onChange={handleThemeChange}
           />
           <label htmlFor="system">
@@ -95,7 +117,7 @@ const Navbar = () => {
             id="dark"
             name="theme"
             value="dark"
-            checked={theme === 'dark'}
+            checked={theme === "dark"}
             onChange={handleThemeChange}
           />
           <label htmlFor="dark">

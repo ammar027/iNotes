@@ -1,2 +1,433 @@
+@import url('https://fonts.googleapis.com/css2?family=Open Sans:wght@400;700&display=swap');
+@import url('https://fonts.cdnfonts.com/css/times-new-roman');
 @import "~@fortawesome/fontawesome-free/css/all.min.css";
+
+
+body {
+  font-family: 'Open Sans', serif;
+  background-color: #ffffff;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+
+
+h2 {
+  font-family: 'Open Sans', serif;
+  font-weight: 800;
+  font-size: 2em;
+  text-align: center;
+  color: #333;
+}
+
+
+
+.navbar-brand {
+  font-family: 'Open Sans', serif;
+  font-weight: 700;
+  font-size: 1.5em;
+  color: #000;
+}
+
+.navbar-nav .nav-link {
+  font-family: 'Open Sans', serif;
+  font-weight: 400;
+  font-size: 1em;
+  color: #555;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #000;
+}
+
+
+
+
+
+h3 {
+  font-family: 'Open Sans', serif;
+  font-weight: 300;
+  font-size: 1.5em;
+  text-align: center;
+  color: #7e7e7e;
+}
+
+
+.about-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+.about-title {
+  font-family: 'Open Sans', serif;
+  font-weight: 700;
+  font-size: 2em;
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.about-description {
+  font-family: 'Open Sans', serif;
+  font-weight: 400;
+  font-size: 1.2em;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+
+
+
+/* Navbar base styles */
+.navbar {
+  /* background-color: rgba(255, 255, 255, 0.568); Semi-transparent background for light mode */
+  background-color: #ffffffa3;
+  backdrop-filter: blur(15px);
+  /* Blur effect */
+  -webkit-backdrop-filter: blur(25px);
+  /* Safari support */
+  border-bottom: 1px solid rgba(199, 198, 198, 0.321);
+  /* Light border for separation */
+  z-index: 999;
+  /* Ensure navbar is above other elements */
+}
+
+/* Dark mode navbar */
+body.dark-mode .navbar {
+  background-color: rgba(0, 0, 0, 0.5);
+  /* Semi-transparent background for dark mode */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  /* Light border for separation */
+}
+
+
+
+
+
+
+
+.navbar-brand {
+  font-family: 'Open Sans', serif;
+  font-weight: 700;
+  font-size: 1.5em;
+  color: #000;
+}
+
+.navbar-nav .nav-link {
+  font-family: 'Open Sans', serif;
+  font-weight: 400;
+  font-size: 1em;
+  color: #555;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #000;
+}
+
+
+body.dark-mode {
+  background-color: #000000;
+  color: #e0e0e0;
+  /* Lighten the text color */
+}
+
+
+body.dark-mode .navbar-brand {
+  color: #f0f0f0;
+  /* Lighter text color */
+}
+
+body.dark-mode .nav-link {
+  color: #b5b5b5;
+  /* Lighter text color */
+}
+
+
+
+body.dark-mode .nav-link.active {
+  color: #ffffff;
+}
+
+body.dark-mode .nav-link:hover {
+  color: #7d7d7d;
+}
+
+
+
+body.dark-mode button {
+  background-color: #444;
+  /* Lighter button background */
+  border: 1px solid #555;
+}
+
+body.dark-mode h2{
+  color: #ffffff;
+  /* White for headings to stand out */
+  font-weight: 700;
+  /* Increase font weight for better readability */
+}
+
+body.dark-mode h3,
+body.dark-mode p{
+  color: #e6e6e6;
+  /* Lighten text */
+}
+
+body.dark-mode .news-item .card-text small {
+  color: #6d6d6d;
+  /* or any other color that contrasts well with the dark background */
+}
+
+
+
+
+body.dark-mode .about-container {
+  background-color: #1a1a1a;
+  /* Darker background for contrast */
+  border: 1px solid #444;
+  /* Border color for better contrast */
+  color: #f0f0f0;
+  /* Lighten text color */
+}
+
+body.dark-mode .about-title {
+  color: #ffffff;
+  /* White for headings to stand out */
+  font-weight: 700;
+  /* Increase font weight for better readability */
+}
+
+body.dark-mode .about-description {
+  color: #e6e6e6;
+  /* Lighten text color */
+}
+
+
+
+/* General frosted glass styling */
+.frosted-glass {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Custom light mode */
+.custom-light-mode {
+  background: rgba(255, 255, 255, 0.5);
+  color: black;
+}
+
+/* Custom dark mode */
+.custom-dark-mode {
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+}
+
+/* Select element styling */
+.custom-select-light-mode {
+  background: rgba(255, 255, 255, 0.25);
+  color: black;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.custom-select-dark-mode {
+  background: rgba(0, 0, 0, 0.25);
+  color: white;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+}
+
+/* Navbar frosted glass effect */
+.navbar-sticky {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+
+
+
+
+
+/* Dark mode support */
+body.dark-mode .back-to-top-btn {
+  background: rgba(0, 0, 0, 0.25);
+  /* Darker background for dark mode */
+  color: #fff;
+  /* Light text color */
+}
+
+body.dark-mode .back-to-top-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  /* Slightly more opaque on hover in dark mode */
+}
+
+.navbar-toggler {
+  border: none;
+}
+
+body.dark-mode .theme-toggle {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100px;
+  height: 40px;
+  background: #2c2c2cae;
+  border-radius: 20px;
+  padding: 5px;
+}
+
+/* toggle */
+
+/* Theme toggle styles */
+.theme-toggle {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100px;
+  height: 40px;
+  background: #dddddd6f;
+  border-radius: 20px;
+  padding: 5px;
+}
+
+.theme-toggle input {
+  display: none;
+}
+
+.theme-toggle label {
+  flex: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  color: #999;
+  transition: color 0.3s;
+}
+
+.theme-toggle input:checked + label {
+  color: #000;
+}
+
+.toggle-thumb {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background: #fff;
+  border-radius: 50%;
+  top: 5px;
+  transition: transform 0.3s ease;
+  z-index: 1;
+}
+
+.theme-toggle input#light:checked ~ .toggle-thumb {
+  transform: translateX(0);
+}
+
+.theme-toggle input#system:checked ~ .toggle-thumb {
+  transform: translateX(30px);
+}
+
+.theme-toggle input#dark:checked ~ .toggle-thumb {
+  transform: translateX(60px);
+}
+
+.theme-toggle label {
+  z-index: 2;
+}
+
+/* Media query for mobile devices */
+@media (max-width: 768px) {
+  .navbar-toggler {
+    order: 2; /* Move the hamburger icon after the theme toggle */
+  }
+
+  .theme-toggle {
+    order: 1; /* Ensure the toggle is placed before the hamburger icon */
+    margin-right: 1rem; /* Add spacing on the right */
+  }
+
+  .navbar-collapse {
+    flex-grow: 1;
+    justify-content: flex-end; /* Align items to the right */
+  }
+
+  .navbar-toggler {
+    margin-left: auto; /* Push the toggle and hamburger to the right */
+  }
+}
+
+
+/* Media query for mobile devices */
+@media (max-width: 1070px) {
+  .navbar-toggler {
+    order: 2; /* Move the hamburger icon after the theme toggle */
+  }
+
+  .theme-toggle {
+    order: 1; /* Ensure the toggle is placed before the hamburger icon */
+    margin-right: 1rem; /* Add spacing on the right */
+  }
+
+  .navbar-collapse {
+    flex-grow: 1;
+    justify-content: flex-end; /* Align items to the right */
+  }
+
+  .navbar-toggler {
+    margin-left: auto; /* Push the toggle and hamburger to the right */
+  }
+}
+
+
+
+.about-footer {
+  margin-top: 40px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.footer-links {
+  list-style-type: none;
+  padding: 0;
+  margin: 10px 0;
+}
+
+.footer-links li {
+  display: inline-block;
+  margin: 0 10px;
+}
+
+.footer-links a {
+  text-decoration: none;
+  color: #007bff;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.footer-icon {
+  margin-right: 5px;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+}
 
