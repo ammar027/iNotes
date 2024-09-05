@@ -4,17 +4,22 @@ import Navbar from "./components/Navbar";
 import Home from "./components/Home";
 import About from "./components/About";
 import LoadingBar from "react-top-loading-bar";
+import NoteState from "./context/notes/NotesState";
 
 function App() {
   return (
-    <Router>
-      <Navbar/>
-      <LoadingBar color="#f11946"  />
-      <Routes>
-        <Route path="/" element={<Home/>} />
-        <Route path="/about" element={<About />} />
-      </Routes>
-    </Router>
+    <NoteState>
+      <Router>
+        <Navbar />
+        <div className="">
+        <LoadingBar color="#f11946" />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+        </Routes>
+        </div>
+      </Router>
+    </NoteState>
   );
 }
 

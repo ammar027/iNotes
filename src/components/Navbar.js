@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSun, faMoon, faAdjust } from "@fortawesome/free-solid-svg-icons";
+import '../css/Navbar.css'; 
 
-const Navbar = ({ selectedCountry, onCountryChange }) => {
+const Navbar = () => {
   const savedTheme = localStorage.getItem("theme") || "system";
   const [theme, setTheme] = useState(savedTheme);
 
@@ -45,12 +46,11 @@ const Navbar = ({ selectedCountry, onCountryChange }) => {
     setTheme(e.target.value);
   };
 
-
   return (
     <nav className={`navbar navbar-expand-lg ${theme}-mode navbar-sticky`}>
       <div className="container-fluid">
         <NavLink className="navbar-brand mx-2" to="/">
-          iNotebook
+          iNotes
         </NavLink>
         <button
           className="navbar-toggler"
@@ -66,22 +66,16 @@ const Navbar = ({ selectedCountry, onCountryChange }) => {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <NavLink
-                className={({ isActive }) =>
-                  isActive ? "nav-link active" : "nav-link"
-                }
-                to="/"
-              >
+              <NavLink className={({ isActive }) =>
+                isActive ? "nav-link active" : "nav-link"
+              } to="/">
                 Home
               </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink
-                className={({ isActive }) =>
-                  isActive ? "nav-link active" : "nav-link"
-                }
-                to="/about"
-              >
+              <NavLink className={({ isActive }) =>
+                isActive ? "nav-link active" : "nav-link"
+              } to="/about">
                 About
               </NavLink>
             </li>
@@ -123,7 +117,6 @@ const Navbar = ({ selectedCountry, onCountryChange }) => {
           <label htmlFor="dark">
             <FontAwesomeIcon icon={faMoon} />
           </label>
-
           <div className={`toggle-thumb ${theme}`} />
         </div>
       </div>
