@@ -1,56 +1,83 @@
-import React, { useState } from 'react';
-import NoteContext from './noteContext'; 
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import NoteContext from './noteContext';
 
 const NoteState = (props) => {
-  const notesInitial = [
-    {
-      "_id": "66dae33677de79611f165e1d",
-      "user": "66dae2fd77de79611f165e19",
-      "title": "Hello James",
-      "description": "Too late be quick",
-      "tag": "personal",
-      "date": "2024-09-06T11:10:46.077Z",
-      "__v": 0
-    },
-    {
-      "_id": "66dae33677de79611fnnn165e1d",
-      "user": "66dae2fd77de79611f165e19",
-      "title": "Hello James",
-      "description": "Too late be quick",
-      "tag": "personal",
-      "date": "2024-09-06T11:10:46.077Z",
-      "__v": 0
-    }
-  ];
+  const [notes, setNotes] = useState([]);
 
-  const [notes, setNotes] = useState(notesInitial);
+  // Hardcoded token for now
+  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjZkYWUyZmQ3N2RlNzk2MTFmMTY1ZTE5In0sImlhdCI6MTcyNTYyMDk4OX0.xJ4Jb97T9KbCsXqRa_0coTCW_B8_Pl0VMsbMeZH3tGA';
+
+  // Fetch notes from the API
+  const fetchNotes = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/api/notes/fetchallnotes', {
+        headers: {
+          'auth-token': token, // Use hardcoded token for now
+        },
+      });
+      setNotes(response.data);
+    } catch (error) {
+      console.error('Error fetching notes:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchNotes(); // Fetch notes when component mounts
+  }, []);
 
   // Add note
-  const addNote = (title, description, tag) => {  
-    const newNote = {
-      "_id": new Date().getTime().toString(),
-      "user": "66dae2fd77de79611f165e19",
-      "title": title,
-      "description": description,
-      "tag": tag,
-      "date": new Date().toISOString(),
-      "__v": 0
-    };
-    setNotes([...notes, newNote]);
+  const addNote = async (title, description, tag) => {
+    try {
+      const response = await axios.post(
+        'http://localhost:5000/api/notes/addnote',
+        { title, description, tag },
+        {
+          headers: {
+            'auth-token': token, // Use hardcoded token
+          },
+        }
+      );
+      setNotes([...notes, response.data]);
+    } catch (error) {
+      console.error('Error adding note:', error);
+    }
   };
 
   // Delete note
-  const deleteNote = (id) => {
-    const updatedNotes = notes.filter(note => note._id !== id);
-    setNotes(updatedNotes);
+  const deleteNote = async (id) => {
+    try {
+      await axios.delete(`http://localhost:5000/api/notes/deletenote/${id}`, {
+        headers: {
+          'auth-token': token, // Use hardcoded token
+        },
+      });
+      setNotes(notes.filter(note => note._id !== id));
+    } catch (error) {
+      console.error('Error deleting note:', error);
+    }
   };
 
   // Edit note
-  const editNote = (id, title, description, tag) => {
-    const updatedNotes = notes.map(note =>
-      note._id === id ? { ...note, title, description, tag } : note
-    );
-    setNotes(updatedNotes);
+  const editNote = async (id, title, description, tag) => {
+    try {
+      const response = await axios.put(
+        `http://localhost:5000/api/notes/updatenote/${id}`,
+        { title, description, tag },
+        {
+          headers: {
+            'auth-token': token, // Use hardcoded token
+          },
+        }
+      );
+      setNotes(
+        notes.map(note =>
+          note._id === id ? { ...note, title, description, tag } : note
+        )
+      );
+    } catch (error) {
+      console.error('Error updating note:', error);
+    }
   };
 
   return (

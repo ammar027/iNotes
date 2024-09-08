@@ -21,12 +21,13 @@ const Note = ({
 
   // When a note is selected, populate the fields with the selected note's details
   useEffect(() => {
-    if (selectedNoteIndex !== null) {
+    if (selectedNoteIndex !== null && notes[selectedNoteIndex]) {
       const selectedNote = notes[selectedNoteIndex];
       setNoteTitle(selectedNote.title || "");
       setNoteDescription(selectedNote.description || "");
       setNoteTag(selectedNote.tag || ""); // Populate tag as well
     } else {
+      // If no note is selected or index is invalid, reset the fields
       setNoteTitle("");
       setNoteDescription("");
       setNoteTag(""); // Clear tag when no note is selected
@@ -42,7 +43,7 @@ const Note = ({
   };
 
   const handleSaveNote = () => {
-    if (selectedNoteIndex !== null) {
+    if (selectedNoteIndex !== null && notes[selectedNoteIndex]) {
       const note = notes[selectedNoteIndex];
       editNote(note._id, noteTitle, noteDescription, noteTag); // Pass tag to editNote
       showAlert("Note updated successfully", "success"); // Trigger update alert
@@ -50,13 +51,14 @@ const Note = ({
   };
 
   const handleDeleteNote = () => {
-    if (selectedNoteIndex !== null) {
+    if (selectedNoteIndex !== null && notes[selectedNoteIndex]) {
       const note = notes[selectedNoteIndex];
       deleteNote(note._id); // Delete note via context
       showAlert("Note deleted successfully", "error"); // Trigger delete alert
       setSelectedNoteIndex(null); // Clear selection after deleting
     }
   };
+
   return (
     <>
       <div className="note-navbar">
@@ -97,10 +99,8 @@ const Note = ({
         className="note-input"
         value={noteDescription}
         onChange={(e) => setNoteDescription(e.target.value)}
-        placeholder="Type your note here..." id="description "
+        placeholder="Type your note here..." id="description"
       />
-
-
     </>
   );
 };

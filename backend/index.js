@@ -1,23 +1,26 @@
-require('dotenv').config({ path: 'backend/.env' }); 
+require('dotenv').config({ path: 'backend/.env' });
 const connectToMongo = require('./db');
-const express = require('express')
+const express = require('express');
+const cors = require('cors');
 
 connectToMongo();
 
-const app = express()
-const port = 5000
+const app = express();
+const port = 5000;
 
-app.use(express.json())
+// Use CORS with default options
+app.use(cors());
 
-//Available Routes
+app.use(express.json());
 
-app.use('/api/auth' , require('./routes/auth')),
-app.use('/api/notes' , require('./routes/notes'))
+// Available Routes
+app.use('/api/auth', require('./routes/auth'));
+app.use('/api/notes', require('./routes/notes'));
 
 app.get('/', (req, res) => {
-  res.send('Hello Ammar!')
-})
+  res.send('Hello Ammar!');
+});
 
 app.listen(port, () => {
-  console.log(`iNotes Backend is on port http://localhost:${port}`)
-})
+  console.log(`iNotes Backend is on port http://localhost:${port}`);
+});
