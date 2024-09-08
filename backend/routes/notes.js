@@ -58,6 +58,7 @@ router.put(
     body("tag", "Tag is required").optional().notEmpty(),
   ],
   async (req, res) => {
+    // Validate request body
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
@@ -66,33 +67,38 @@ router.put(
     const { title, description, tag } = req.body;
 
     try {
+      // Create a new note object with the updated values
       const newNote = {};
       if (title) newNote.title = title;
       if (description) newNote.description = description;
       if (tag) newNote.tag = tag;
 
+      // Find the note to be updated
       let note = await Notes.findById(req.params.id);
       if (!note) {
-        return res.status(404).send("Not Found");
+        return res.status(404).json({ error: "Note not found" });
       }
 
+      // Ensure the user owns this note
       if (note.user.toString() !== req.user.id) {
-        return res.status(401).send("Unauthorized");
+        return res.status(401).json({ error: "Unauthorized" });
       }
 
+      // Update the note
       note = await Notes.findByIdAndUpdate(
         req.params.id,
         { $set: newNote },
-        { new: true }
+        { new: true }  // Return the updated note
       );
 
       res.json(note);
     } catch (err) {
       console.error(err.message);
-      res.status(500).send("Internal Server Error");
+      res.status(500).json({ error: "Internal Server Error" });
     }
   }
 );
+
 
 // Route 4: Delete an existing note using: DELETE "/api/notes/deletenote/:id". Login Required
 router.delete("/deletenote/:id", fetchuser, async (req, res) => {

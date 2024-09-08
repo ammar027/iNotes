@@ -1,12 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSun, faMoon, faAdjust } from "@fortawesome/free-solid-svg-icons";
+import { faSun, faMoon, faDesktop, faMobileAlt } from "@fortawesome/free-solid-svg-icons";
 import '../css/Navbar.css'; 
 
 const Navbar = () => {
   const savedTheme = localStorage.getItem("theme") || "system";
   const [theme, setTheme] = useState(savedTheme);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768); // Detect mobile screen
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768); // Update on resize
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     const applyTheme = () => {
@@ -66,16 +77,22 @@ const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <NavLink className={({ isActive }) =>
-                isActive ? "nav-link active" : "nav-link"
-              } to="/">
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? "nav-link active" : "nav-link"
+                }
+                to="/"
+              >
                 Home
               </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className={({ isActive }) =>
-                isActive ? "nav-link active" : "nav-link"
-              } to="/about">
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? "nav-link active" : "nav-link"
+                }
+                to="/about"
+              >
                 About
               </NavLink>
             </li>
@@ -103,7 +120,7 @@ const Navbar = () => {
             onChange={handleThemeChange}
           />
           <label htmlFor="system">
-            <FontAwesomeIcon icon={faAdjust} />
+            <FontAwesomeIcon icon={isMobile ? faMobileAlt : faDesktop} /> {/* Switch icon */}
           </label>
 
           <input

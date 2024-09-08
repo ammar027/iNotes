@@ -6,8 +6,9 @@ body {
   margin: 0;
   padding: 0;
   transition: background-color 0.3s, color 0.3s;
-  overflow: hidden; /* Disable all scrolls */
+  overflow: auto; /* Enable scroll if needed */
   height: 100vh; /* Ensure the body takes up the full viewport height */
+  box-sizing: border-box; /* Include padding and border in element's total width and height */
 }
 
 /* Dark Mode */
@@ -17,7 +18,7 @@ body.dark-mode {
 }
 
 body.dark-mode .note-navbar {
-  background-color: #2c2c2e;
+  background-color: transparent ;
 }
 
 body.dark-mode .sidebar {
@@ -25,8 +26,10 @@ body.dark-mode .sidebar {
   color: #f9f9f9;
 }
 
+/* Dark mode for the notes-section */
 body.dark-mode .notes-section {
-  background-color: #1c1c1e;
+  background-image: url('../assets/dark-paper.png'); /* Dark mode texture */
+  background-color: #1c1c1e; /* Fallback dark color */
   color: #f9f9f9;
 }
 
@@ -72,6 +75,7 @@ body.dark-mode .search-input {
   display: flex;
   height: 100vh; /* Ensure the container takes the full viewport height */
   flex-direction: row; /* Sidebar on the left */
+  overflow: hidden; /* Hide overflow to manage scrolling in child elements */
 }
 
 /* Sidebar */
@@ -93,21 +97,19 @@ body.dark-mode .search-input {
 
 .sidebar.visible {
   transform: translateX(0); /* Keep sidebar visible */
-  overflow: hidden;
+  overflow: auto; /* Ensure sidebar content scrolls if necessary */
 }
 
-/* Notes Section */
 .notes-section {
   flex-grow: 1;
   background-color: #fff;
+  background-image: url('../assets/light-paper.png'); /* Default light mode texture */
+  background-size: cover;
+  background-position: center;
   box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
   width: calc(100% - 250px); /* Default width minus sidebar */
   transition: width 0.5s ease, background-color 0.3s, box-shadow 0.3s;
   overflow: hidden; /* Prevent overflow */
-}
-
-.notes-section.expanded {
-  width: 100%; /* Expand to full width when sidebar is hidden */
 }
 
 /* Search Input with Icon Container */
@@ -135,12 +137,11 @@ body.dark-mode .search-input {
   color: #333;
 }
 
-
 .note-navbar {
   display: flex;
   justify-content: space-around;
   width: 100%; /* Ensure it takes up the full width */
-  background-color: rgb(245, 245, 247);
+  background-color: transparent;
 }
 
 .navbar-btn {
@@ -157,6 +158,41 @@ body.dark-mode .search-input {
   color: #ffe785; /* Lighter yellow on hover */
 }
 
+/* Dropdown for selecting tags */
+/* Light Mode */
+.note-tag-input {
+  width: fit-content;
+  padding: 6px;
+  margin-left: 3%;
+  margin-right: 2%;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  border-color: #ffd52e;
+  font-size: 1rem;
+  background-color: #f9f9f95f;
+  transition: border-color 0.3s ease;
+  color: #000000;
+} 
+
+.note-tag-input:focus {
+  border-color: #ffea94;
+  outline: none;
+}
+
+/* Dark Mode */
+body.dark-mode .note-tag-input {
+  border: 1px solid #555;
+  border-radius: 15px;
+  border-color: #ffd52e;
+  background-color: #333;
+  color: #f9f9f9;
+}
+
+body.dark-mode .note-tag-input:focus {
+  border-color: #ffea94;
+}
+
+
 .note-input {
   width: 100%;
   height: calc(100% - 60px); /* Full height minus some padding for title and margins */
@@ -164,7 +200,7 @@ body.dark-mode .search-input {
   font-size: 1.2em;
   border: none;
   outline: none;
-  background-color: inherit; /* Inherit panel's background */
+  background-color: transparent;
   color: inherit; /* Inherit panel's text color */
   resize: none; /* Disable resizing */
   margin-left: 2%;
@@ -177,9 +213,12 @@ body.dark-mode .search-input {
   font-size: 1.5em;
   border: none; /* Remove border */
   outline: none; /* Remove outline */
-  background-color: inherit;
+  background-color: transparent;
   color: inherit;
-  margin: 3%;
+  margin-left: 3%;
+  margin-top: 3%;
+  margin-bottom: 1%;
+  margin-right: 2%;
   font-weight: 600;
 }
 
@@ -211,11 +250,10 @@ body.dark-mode .search-input {
 
 .selected-note .note-title,
 .selected-note .note-date,
-.selected-note .note-tag ,
-.selected-note .delete-btn{
+.selected-note .note-tag,
+.selected-note .delete-btn {
   color: #ffffff; /* White text when selected */
 }
-
 
 /* Ensure hover does not override selected note */
 .note-item:hover:not(.selected-note) {
@@ -236,6 +274,9 @@ body.dark-mode .search-input {
   font-weight: bold;
   color: #333;
   margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .note-tag {
@@ -243,7 +284,13 @@ body.dark-mode .search-input {
   color: #272727;
   border-radius: 4px;
   font-weight: 400;
+
 }
+
+
+
+
+
 
 .note-date {
   font-size: 0.8rem;
@@ -304,11 +351,197 @@ body.dark-mode .search-input {
   .note-navbar {
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
+    justify-content: space-around;
     margin-bottom: 15px;
+
   }
 
   .navbar-btn {
     margin: 0 5px;
   }
+
+  .note-tag-input {
+    width: fit-content;
+    padding: 6px;
+    margin-left: 5%;
+    margin-right: 2%;
+  }
+
+  .note-title-input {
+    margin-left: 5%;
+  }
+}
+
+/* Base Alert Styles */
+.alert {
+  position: fixed;
+  bottom: 20px; /* Place it at the bottom */
+  left: 50%;
+  transform: translateX(-50%); /* Center horizontally */
+  padding: 10px 10px; /* Smaller padding */
+  border-radius: 20px;
+  font-size: 0.9rem; /* Smaller font size */
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Minimal shadow */
+  transition: all 0.3s ease;
+  background-color: #ffffff; /* Default solid background color for light mode */
+  opacity: 0.95; /* Slight transparency */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: auto; /* Adjust to content */
+  max-width: 80%; /* Make sure it doesn't exceed the viewport width */
+}
+
+/* Alert icon */
+.alert-icon {
+  font-size: 1rem; /* Slightly smaller icon */
+}
+
+/* Specific alert types for light mode */
+.alert-info {
+  background-color: #d9edf7;
+  color: #31708f;
+}
+
+.alert-success {
+  background-color: #dff0d8;
+  color: #3c763d;
+}
+
+.alert-error {
+  background-color: #f2dede;
+  color: #a94442;
+}
+
+/* Dark Mode Alerts */
+body.dark-mode .alert {
+  background-color: rgba(51, 51, 51, 0.9); /* Dark background for alert */
+  color: #f9f9f9; /* Light text color in dark mode */
+}
+
+body.dark-mode .alert-info {
+  background-color: #4a90e2;
+  color: #dff3ff;
+}
+
+body.dark-mode .alert-success {
+  background-color: #2d6a4f;
+  color: #c8e6c9;
+}
+
+body.dark-mode .alert-error {
+  background-color: #c0392b;
+  color: #fddede;
+}
+
+/* Animations for Alerts */
+.alert {
+  opacity: 0;
+  transform: translateX(-50%) translateY(20px);
+  animation: fadeIn 0.3s forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+/* Close button for the alert */
+.alert .alert-close {
+  background: none;
+  border: none;
+  font-size: 0.9rem;
+  cursor: pointer;
+  color: inherit; /* Inherit color from the alert */
+}
+
+.alert .alert-close:hover {
+  color: #c0392b; /* Hover color for the close button */
+}
+
+
+
+
+
+
+
+/* Hide scrollbars */
+::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+
+body, .sidebar, .notes-section {
+  overflow: auto; /* Ensure scrolling is enabled */
+}
+
+/* For Firefox */
+body {
+  scrollbar-width: none; /* Hide scrollbar for Firefox */
+}
+
+.sidebar {
+  scrollbar-width: none; /* Hide scrollbar for Firefox */
+}
+
+.notes-section {
+  scrollbar-width: none; /* Hide scrollbar for Firefox */
+}
+
+/* For Internet Explorer and Edge (non-Webkit) */
+body {
+  -ms-overflow-style: none; /* Hide scrollbar for Internet Explorer and Edge */
+}
+
+.sidebar {
+  -ms-overflow-style: none; /* Hide scrollbar for Internet Explorer and Edge */
+}
+
+.notes-section {
+  -ms-overflow-style: none; /* Hide scrollbar for Internet Explorer and Edge */
+}
+
+
+/* Hide horizontal scrollbar and disable horizontal scrolling */
+body, .sidebar, .notes-section {
+  overflow-x: hidden; /* Disable horizontal scrolling */
+  overflow-y: auto;   /* Enable vertical scrolling */
+}
+
+/* Hide horizontal scrollbar */
+::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+
+body {
+  scrollbar-width: none; /* Hide scrollbar for Firefox */
+  overflow-x: hidden; /* Disable horizontal scroll */
+}
+
+.sidebar {
+  scrollbar-width: none; /* Hide scrollbar for Firefox */
+  overflow-x: hidden; /* Disable horizontal scroll */
+}
+
+.notes-section {
+  scrollbar-width: none; /* Hide scrollbar for Firefox */
+  overflow-x: hidden; /* Disable horizontal scroll */
+}
+
+/* For Internet Explorer and Edge (non-Webkit) */
+body {
+  -ms-overflow-style: none; /* Hide scrollbar for Internet Explorer and Edge */
+  overflow-x: hidden; /* Disable horizontal scroll */
+}
+
+.sidebar {
+  -ms-overflow-style: none; /* Hide scrollbar for Internet Explorer and Edge */
+  overflow-x: hidden; /* Disable horizontal scroll */
+}
+
+.notes-section {
+  -ms-overflow-style: none; /* Hide scrollbar for Internet Explorer and Edge */
+  overflow-x: hidden; /* Disable horizontal scroll */
 }
