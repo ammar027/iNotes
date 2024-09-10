@@ -9,17 +9,14 @@ const fetchuser = require("../middleware/fetchuser");
 const JWT_SECRET = process.env.JWT_SECRET; // This will pull in the value from .env.local
  
 // Route 1 - Create a user using: POST "/api/auth/createuser". No login required
+// POST /api/auth/createuser (Backend route for signup)
 router.post(
   "/createuser",
   [
     body("name", "Name is required").notEmpty(),
-    body("name", "Name must be at least 2 characters long").isLength({
-      min: 2,
-    }),
+    body("name", "Name must be at least 2 characters long").isLength({ min: 2 }),
     body("email", "Please enter a valid email").isEmail(),
-    body("password", "Password must be at least 5 characters long").isLength({
-      min: 5,
-    }),
+    body("password", "Password must be at least 5 characters long").isLength({ min: 5 }),
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -30,15 +27,12 @@ router.post(
     try {
       let user = await User.findOne({ email: req.body.email });
       if (user) {
-        return res
-          .status(400)
-          .json({ error: "Sorry, a user with this email already exists" });
+        return res.status(400).json({ error: "User with this email already exists" });
       }
 
       const salt = await bcrypt.genSalt(10);
       const secPass = await bcrypt.hash(req.body.password, salt);
 
-      // Create a new user
       user = await User.create({
         name: req.body.name,
         email: req.body.email,
@@ -46,9 +40,7 @@ router.post(
       });
 
       const data = {
-        user: {
-          id: user.id,
-        },
+        user: { id: user.id },
       };
       const authtoken = jwt.sign(data, JWT_SECRET);
 
@@ -59,6 +51,7 @@ router.post(
     }
   }
 );
+
 
 // Route 2 - Login a user using: POST "/api/auth/login". No login required
 router.post(
@@ -101,8 +94,11 @@ router.post(
       console.error(err.message);
       res.status(500).json({ error: "Internal Server Error" });
     }
+
+    
   }
 );
+
 
 // Route 3 - Get logged-in user details using: POST "/api/auth/getuser". Login required
 router.post("/getuser", fetchuser, async (req, res) => {

@@ -13,6 +13,7 @@ const Note = ({
   setSelectedNoteIndex,
   showAlert,
   toggleSidebar,
+  isLoggedIn, // New prop for login status
 }) => {
   const { notes, addNote, editNote, deleteNote } = useContext(NoteContext); // Get context values
   const [noteTitle, setNoteTitle] = useState("");
@@ -35,27 +36,39 @@ const Note = ({
   }, [selectedNoteIndex, notes]);
 
   const handleAddNote = () => {
-    if (noteTitle.trim() && noteDescription.trim()) {
-      addNote(noteTitle, noteDescription, noteTag); // Pass tag to addNote
-      showAlert("Note added successfully", "success"); // Trigger add alert
-      setSelectedNoteIndex(notes.length); // Select the new note
+    if (isLoggedIn) { // Check if user is logged in
+      if (noteTitle.trim() && noteDescription.trim()) {
+        addNote(noteTitle, noteDescription, noteTag); // Pass tag to addNote
+        showAlert("Note added successfully", "success"); // Trigger add alert
+        setSelectedNoteIndex(notes.length); // Select the new note
+      }
+    } else {
+      showAlert("Please log in to add notes", "warning"); // Show alert if not logged in
     }
   };
 
   const handleSaveNote = () => {
-    if (selectedNoteIndex !== null && notes[selectedNoteIndex]) {
-      const note = notes[selectedNoteIndex];
-      editNote(note._id, noteTitle, noteDescription, noteTag); // Pass tag to editNote
-      showAlert("Note updated successfully", "success"); // Trigger update alert
+    if (isLoggedIn) { // Check if user is logged in
+      if (selectedNoteIndex !== null && notes[selectedNoteIndex]) {
+        const note = notes[selectedNoteIndex];
+        editNote(note._id, noteTitle, noteDescription, noteTag); // Pass tag to editNote
+        showAlert("Note updated successfully", "success"); // Trigger update alert
+      }
+    } else {
+      showAlert("Please log in to save notes", "warning"); // Show alert if not logged in
     }
   };
 
   const handleDeleteNote = () => {
-    if (selectedNoteIndex !== null && notes[selectedNoteIndex]) {
-      const note = notes[selectedNoteIndex];
-      deleteNote(note._id); // Delete note via context
-      showAlert("Note deleted successfully", "error"); // Trigger delete alert
-      setSelectedNoteIndex(null); // Clear selection after deleting
+    if (isLoggedIn) { // Check if user is logged in
+      if (selectedNoteIndex !== null && notes[selectedNoteIndex]) {
+        const note = notes[selectedNoteIndex];
+        deleteNote(note._id); // Delete note via context
+        showAlert("Note deleted successfully", "error"); // Trigger delete alert
+        setSelectedNoteIndex(null); // Clear selection after deleting
+      }
+    } else {
+      showAlert("Please log in to delete notes", "warning"); // Show alert if not logged in
     }
   };
 

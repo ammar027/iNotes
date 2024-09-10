@@ -1,0 +1,225 @@
+/* Container styling */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa, #e2e8f0); /* Light gradient */
+  padding: 0 20px;
+  animation: fadeIn 1s ease; /* Fade-in animation */
+}
+
+body.dark-mode .login-container {
+  background: #0000;
+  animation: fadeIn 1s ease;
+}
+
+/* Card styling */
+.login-card {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  transition: box-shadow 0.3s ease;
+  animation: slideIn 0.5s ease forwards; /* Slide-in animation */
+  opacity: 0; /* Initially hidden */
+}
+
+body.dark-mode .login-card {
+  background-color: #2e2e2e;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+/* Title styling */
+.login-title {
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #ffb703; /* Modern yellow color */
+}
+
+body.dark-mode .login-title {
+  color: #ffd700;
+}
+
+/* Form styling */
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #333;
+  font-weight: 500;
+}
+
+body.dark-mode .form-group label {
+  color: #f1f1f1;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.9rem;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  background-color: #f7fafc;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  outline: none;
+}
+
+.form-group input:focus {
+  border-color: #ffb703; /* Focus border color */
+  box-shadow: 0 0 0 3px rgba(255, 183, 3, 0.3); /* Glowing effect */
+}
+
+body.dark-mode .form-group input {
+  background-color: #3a3a3c;
+  color: #f9f9f9;
+  border: 1px solid #555;
+}
+
+body.dark-mode .form-group input:focus {
+  border-color: #ffd700;
+  box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.3); /* Focus glow effect in dark mode */
+}
+
+/* Button styling */
+.btn-primary {
+  background-color: #ffb703;
+  color: #ffffff;
+  width: 100%;
+  padding: 0.9rem;
+  border-radius: 12px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  border: none;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background-color: #ff9f05; /* Slightly darker on hover */
+  transform: translateY(-2px); /* Lift effect */
+}
+
+body.dark-mode .btn-primary {
+  background-color: #ffd700;
+  color: #242424;
+}
+
+body.dark-mode .btn-primary:hover {
+  background-color: #ffb703;
+  color: #fff;
+}
+
+/* Loading animation for button */
+.btn-primary:disabled {
+  background-color: #ddd;
+  cursor: not-allowed;
+}
+
+.btn-primary:disabled::after {
+  content: '';
+  display: inline-block;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  border-top: 2px solid #ffb703;
+  width: 16px;
+  height: 16px;
+  animation: spin 0.8s linear infinite;
+  margin-left: 8px;
+}
+
+/* Spin animation */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Sign up link styling */
+.signup-link {
+  display: block;
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 1rem;
+  color: #6c757d;
+  transition: color 0.3s ease;
+}
+
+.signup-link a {
+  color: #ffb703;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.signup-link a:hover {
+  color: #ff9f05; /* Hover effect */
+}
+
+body.dark-mode .signup-link a {
+  color: #ffd700;
+}
+
+body.dark-mode .signup-link a:hover {
+  color: #ffb703;
+}
+
+/* Error message styling */
+.login-error {
+  background-color: #ffefef;
+  color: #ff5e5e;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+body.dark-mode .login-error {
+  background-color: #611a15;
+  color: #fddede;
+}
+
+/* Success message styling */
+.login-success {
+  background-color: #e7f9e7;
+  color: #2a9d8f;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+body.dark-mode .login-success {
+  background-color: #204d42;
+  color: #9ae3d5;
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Slide-in animation */
+@keyframes slideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

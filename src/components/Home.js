@@ -1,8 +1,9 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import '../css/Home.css';
 import Note from './Notes'; // Import Note component
 import Alert from './Alert'; // Import Alert component
 import NoteContext from '../context/notes/noteContext'; 
+import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faSearch } from '@fortawesome/free-solid-svg-icons';
 
@@ -12,12 +13,40 @@ const Home = () => {
   const [sidebarVisible, setSidebarVisible] = useState(true);
   const [selectedNoteIndex, setSelectedNoteIndex] = useState(null);
   const [alert, setAlert] = useState(null); // State to control the alert
+  const [username, setUsername] = useState(''); // State for username
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // State for login status
 
   // Show alert with a message and type (success or error)
   const showAlert = (message, type) => {
     setAlert({ message, type });
     setTimeout(() => setAlert(null), 3000); // Auto dismiss after 3 seconds
   };
+
+  // Fetch user details
+  const fetchUserDetails = async () => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      setIsLoggedIn(false); // If no token, user is not logged in
+      return;
+    }
+
+    try {
+      const response = await axios.post('http://localhost:5000/api/auth/getuser', {}, {
+        headers: {
+          'auth-token': token
+        }
+      });
+      setUsername(response.data.name); // Assuming response contains user object with name property
+      setIsLoggedIn(true); // User is logged in
+    } catch (error) {
+      console.error("Error fetching user details:", error);
+      setIsLoggedIn(false); // If error occurs, user is not logged in
+    }
+  };
+
+  useEffect(() => {
+    fetchUserDetails(); // Fetch username when the component mounts
+  }, []);
 
   // Define filteredNotes by filtering notes based on searchQuery
   const filteredNotes = notes.filter((note) =>
@@ -46,7 +75,7 @@ const Home = () => {
       {alert && <Alert message={alert.message} type={alert.type} onClose={() => setAlert(null)} />}
 
       <div className={`sidebar ${sidebarVisible ? 'visible' : 'hidden'}`}>
-        <h3 className="list-title">Your Notes</h3>
+        <h3 className="list-title">{username ? `${username}'s Notes` : 'Your Notes'}</h3> {/* Display the username */}
         <div className="search-container">
           <FontAwesomeIcon className="search-icon" icon={faSearch} />
           <input
@@ -96,6 +125,7 @@ const Home = () => {
           setSelectedNoteIndex={setSelectedNoteIndex}
           showAlert={showAlert} // Pass showAlert to Note
           toggleSidebar={toggleSidebar} // Pass toggleSidebar to Note
+          isLoggedIn={isLoggedIn} // Pass isLoggedIn to Note
         />
       </div>
     </div>

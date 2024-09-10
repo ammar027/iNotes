@@ -1,0 +1,155 @@
+/* Container styling */
+.container {
+  max-width: 500px;
+  margin: auto;
+  padding: 40px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+body.dark-mode .container {
+  background-color: #2e2e2e;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+/* Title styling */
+h2 {
+  color: #ffd52e;
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-weight: bold;
+}
+
+body.dark-mode h2 {
+  color: #ffd700;
+}
+
+/* Form styling */
+.form-control {
+  border-radius: 12px;
+  border: 1px solid rgba(200, 200, 200, 0.4);
+  padding: 12px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+  outline: none;
+  background-color: #f7fafc;
+}
+
+.form-control:focus {
+  border-color: #ffb703;
+  box-shadow: 0 0 0 4px rgba(255, 183, 3, 0.3); /* Glowing focus effect */
+}
+
+body.dark-mode .form-control {
+  background-color: #3a3a3c;
+  color: #f1f1f1;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+body.dark-mode .form-control:focus {
+  border-color: #ffd700;
+  box-shadow: 0 0 0 4px rgba(255, 215, 0, 0.3); /* Dark mode focus glow */
+}
+
+/* Button styling */
+.btn-primary {
+  background-color: #ffd52e;
+  color: #fff;
+  border: none;
+  width: 100%;
+  padding: 0.9rem;
+  border-radius: 12px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-primary:hover {
+  background-color: #ffb703;
+  transform: translateY(-2px); /* Slight lift on hover */
+}
+
+body.dark-mode .btn-primary {
+  background-color: #ffd700;
+  color: #2e2e2e;
+}
+
+body.dark-mode .btn-primary:hover {
+  background-color: #ffb703;
+  color: #fff;
+}
+
+/* Error and Success Message Styling */
+.alert {
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  margin-top: 1rem;
+}
+
+.alert-error {
+  background-color: #f2dede;
+  color: #a94442;
+}
+
+body.dark-mode .alert-error {
+  background-color: #611a15;
+  color: #fddede;
+}
+
+.alert-success {
+  background-color: #e7f9e7;
+  color: #2a9d8f;
+}
+
+body.dark-mode .alert-success {
+  background-color: #204d42;
+  color: #9ae3d5;
+}
+
+/* Link to Login */
+.login-link {
+  display: block;
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 1rem;
+  color: #6c757d;
+  transition: color 0.3s ease;
+}
+
+.login-link a {
+  color: #ffb703;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.login-link a:hover {
+  color: #ff9f05; /* Hover effect */
+}
+
+body.dark-mode .login-link a {
+  color: #ffd700;
+}
+
+body.dark-mode .login-link a:hover {
+  color: #ffb703;
+}
+
+/* Animation Effects */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.container {
+  animation: fadeIn 0.8s ease;
+}

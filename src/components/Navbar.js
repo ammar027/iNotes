@@ -1,21 +1,28 @@
-import React, { useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import React, { useState, useEffect, useContext } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSun, faMoon, faDesktop, faMobileAlt } from "@fortawesome/free-solid-svg-icons";
-import '../css/Navbar.css'; 
+import NoteContext from '../context/notes/noteContext';
+import {
+  faSun,
+  faMoon,
+  faDesktop,
+  faMobileAlt,
+  faSignOutAlt,
+} from "@fortawesome/free-solid-svg-icons";
+import "../css/Navbar.css";
 
-const Navbar = () => {
+const Navbar = ({ isLoggedIn, handleLogout }) => {
+  const navigate = useNavigate(); // To redirect after logout
   const savedTheme = localStorage.getItem("theme") || "system";
   const [theme, setTheme] = useState(savedTheme);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768); // Detect mobile screen
+  const { logout } = useContext(NoteContext);
 
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768); // Update on resize
     };
-
     window.addEventListener("resize", handleResize);
-
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
@@ -34,27 +41,17 @@ const Navbar = () => {
       }
       localStorage.setItem("theme", theme);
     };
-
     applyTheme();
-
-    const handleSystemThemeChange = (e) => {
-      if (theme === "system") {
-        const prefersDarkScheme = e.matches;
-        document.body.classList.toggle("dark-mode", prefersDarkScheme);
-        document.body.classList.toggle("light-mode", !prefersDarkScheme);
-      }
-    };
-
-    const mediaQueryList = window.matchMedia("(prefers-color-scheme: dark)");
-    mediaQueryList.addEventListener("change", handleSystemThemeChange);
-
-    return () => {
-      mediaQueryList.removeEventListener("change", handleSystemThemeChange);
-    };
   }, [theme]);
 
   const handleThemeChange = (e) => {
     setTheme(e.target.value);
+  };
+
+  const handleLogoutClick = () => {
+    logout(); // Clear notes and token from context
+    handleLogout(); // Call the external logout handler if needed
+    navigate("/login"); // Redirect to login after logout
   };
 
   return (
@@ -110,7 +107,6 @@ const Navbar = () => {
           <label htmlFor="light">
             <FontAwesomeIcon icon={faSun} />
           </label>
-
           <input
             type="radio"
             id="system"
@@ -120,9 +116,8 @@ const Navbar = () => {
             onChange={handleThemeChange}
           />
           <label htmlFor="system">
-            <FontAwesomeIcon icon={isMobile ? faMobileAlt : faDesktop} /> {/* Switch icon */}
+            <FontAwesomeIcon icon={isMobile ? faMobileAlt : faDesktop} />
           </label>
-
           <input
             type="radio"
             id="dark"
@@ -135,6 +130,22 @@ const Navbar = () => {
             <FontAwesomeIcon icon={faMoon} />
           </label>
           <div className={`toggle-thumb ${theme}`} />
+        </div>
+        <div className="auth-buttons mx-2">
+          {isLoggedIn ? (
+            <button className="btn-logout" onClick={handleLogoutClick}>
+              <FontAwesomeIcon icon={faSignOutAlt} />
+            </button>
+          ) : (
+            <>
+              <NavLink className="auth-btn mx-2" to="/login">
+                Login
+              </NavLink>
+              <NavLink className="auth-btn auth-btn-signup mx-1" to="/signup">
+                Signup
+              </NavLink>
+            </>
+          )}
         </div>
       </div>
     </nav>

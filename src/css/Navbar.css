@@ -126,3 +126,90 @@
       margin-left: auto;
     }
   }
+
+
+/* Login and Signup button styles */
+.navbar .auth-btn {
+  border: 2px solid #ffd52e;
+  color: #ffd52e;
+  background-color: transparent;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  text-decoration: none; /* Ensure no underline for NavLink */
+}
+
+.navbar .auth-btn:hover {
+  background-color: #ffd52e;
+  color: #fff;
+}
+
+/* Dark mode styles for the buttons */
+body.dark-mode .navbar .auth-btn {
+  border-color: #ffd52e;
+  color: #ffea94;
+}
+
+body.dark-mode .navbar .auth-btn:hover {
+  background-color: #ffea94;
+  color: #242424;
+}
+
+/* Signup button variation */
+.navbar .auth-btn-signup {
+  background-color: #ffd52e;
+  color: #fff;
+}
+
+.navbar .auth-btn-signup:hover {
+  background-color: #ffea94;
+  color: #242424;
+}
+
+/* Dark mode for Signup button */
+body.dark-mode .navbar .auth-btn-signup {
+  background-color: #ffd52e;
+  color: #242424;
+}
+
+body.dark-mode .navbar .auth-btn-signup:hover {
+  background-color: #ffea94;
+  color: #fff;
+}
+
+
+.auth-buttons {
+  display: flex;
+  align-items: center;
+
+}
+
+.btn-logout {
+  display: flex;
+  align-items: center;
+  background-color: #dc3545; /* Red background color */
+  color: white; /* White text color */
+  border: none; /* Remove border */
+  padding: 10px;
+  border-radius: 4px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s, transform 0.3s; /* Smooth transition for hover effects */
+  font-size: 18px; /* Font size */
+  font-weight: 500; /* Font weight */
+  width: fit-content;
+  border-radius: 19px;
+}
+
+.btn-logout:hover {
+  background-color: #c82333; /* Darker red on hover */
+  transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+.btn-logout:active {
+  background-color: #bd2130; /* Even darker red on click */
+  transform: scale(1); /* Reset size on click */
+}
+
+
+

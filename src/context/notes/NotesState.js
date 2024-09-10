@@ -1,72 +1,116 @@
-import React, { useState, useEffect } from 'react';
+/* eslint-disable no-unused-vars */
+
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import NoteContext from './noteContext';
+import LoadingBar from 'react-top-loading-bar';
 
 const NoteState = (props) => {
+  const { isLoggedIn, handleLogout } = props; // eslint-disable-line no-unused-vars
   const [notes, setNotes] = useState([]);
-
-  // Hardcoded token for now
-  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjZkYWUyZmQ3N2RlNzk2MTFmMTY1ZTE5In0sImlhdCI6MTcyNTYyMDk4OX0.xJ4Jb97T9KbCsXqRa_0coTCW_B8_Pl0VMsbMeZH3tGA';
+  const loadingBarRef = useRef(null); // Ref for the LoadingBar
 
   // Fetch notes from the API
   const fetchNotes = async () => {
+    const token = localStorage.getItem('token'); // Dynamically fetch token from localStorage
+
+    if (!token) {
+      console.error('No token found! User needs to log in.');
+      return;
+    }
+
     try {
+      loadingBarRef.current.continuousStart(); // Start loading bar
       const response = await axios.get('http://localhost:5000/api/notes/fetchallnotes', {
         headers: {
-          'auth-token': token, // Use hardcoded token for now
+          'auth-token': token, // Use dynamic token
         },
       });
-      setNotes(response.data);
+      setNotes(response.data); // Use data directly
     } catch (error) {
       console.error('Error fetching notes:', error);
+    } finally {
+      loadingBarRef.current.complete(); // Stop loading bar
     }
   };
 
   useEffect(() => {
-    fetchNotes(); // Fetch notes when component mounts
-  }, []);
+    if (isLoggedIn) {
+      fetchNotes(); // Fetch notes when component mounts or login state changes
+    } else {
+      setNotes([]); // Clear notes when user logs out
+    }
+  }, [isLoggedIn]); // Re-fetch notes whenever isLoggedIn changes
 
   // Add note
   const addNote = async (title, description, tag) => {
+    const token = localStorage.getItem('token'); // Dynamically fetch token from localStorage
+
+    if (!token) {
+      console.error('No token found! User needs to log in.');
+      return;
+    }
+
     try {
+      loadingBarRef.current.continuousStart(); // Start loading bar
       const response = await axios.post(
         'http://localhost:5000/api/notes/addnote',
         { title, description, tag },
         {
           headers: {
-            'auth-token': token, // Use hardcoded token
+            'auth-token': token, // Use dynamic token
           },
         }
       );
-      setNotes([...notes, response.data]);
+      setNotes([...notes, response.data]); // Use data directly
     } catch (error) {
       console.error('Error adding note:', error);
+    } finally {
+      loadingBarRef.current.complete(); // Stop loading bar
     }
   };
 
   // Delete note
   const deleteNote = async (id) => {
+    const token = localStorage.getItem('token'); // Dynamically fetch token from localStorage
+
+    if (!token) {
+      console.error('No token found! User needs to log in.');
+      return;
+    }
+
     try {
+      loadingBarRef.current.continuousStart(); // Start loading bar
       await axios.delete(`http://localhost:5000/api/notes/deletenote/${id}`, {
         headers: {
-          'auth-token': token, // Use hardcoded token
+          'auth-token': token, // Use dynamic token
         },
       });
       setNotes(notes.filter(note => note._id !== id));
     } catch (error) {
       console.error('Error deleting note:', error);
+    } finally {
+      loadingBarRef.current.complete(); // Stop loading bar
     }
   };
 
   // Edit note
   const editNote = async (id, title, description, tag) => {
+    const token = localStorage.getItem('token'); // Dynamically fetch token from localStorage
+
+    if (!token) {
+      console.error('No token found! User needs to log in.');
+      return;
+    }
+
     try {
+      loadingBarRef.current.continuousStart(); // Start loading bar
       const response = await axios.put(
         `http://localhost:5000/api/notes/updatenote/${id}`,
         { title, description, tag },
         {
           headers: {
-            'auth-token': token, // Use hardcoded token
+            'auth-token': token, // Use dynamic token
           },
         }
       );
@@ -77,11 +121,20 @@ const NoteState = (props) => {
       );
     } catch (error) {
       console.error('Error updating note:', error);
+    } finally {
+      loadingBarRef.current.complete(); // Stop loading bar
     }
   };
 
+  const logout = () => {
+    localStorage.removeItem('token'); // Clear token
+    setNotes([]); // Clear notes
+    // Optionally, handle additional logout logic here
+  };
+
   return (
-    <NoteContext.Provider value={{ notes, addNote, deleteNote, editNote }}>
+    <NoteContext.Provider value={{ notes, addNote, deleteNote, editNote, logout }}>
+      <LoadingBar color="#ffd52e" ref={loadingBarRef} /> {/* Include LoadingBar */}
       {props.children}
     </NoteContext.Provider>
   );
