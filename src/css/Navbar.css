@@ -215,8 +215,8 @@ body.dark-mode .navbar .auth-btn-signup:hover {
 
 /* Ensure button is circular */
 .btn-logout {
-  width: 50px; /* Adjust size as needed */
-  height: 50px; /* Adjust size as needed */
+  width: 40px; /* Adjust size as needed */
+  height: 40px; /* Adjust size as needed */
   background-color: #dc3545;
   color: white;
   border: none; /* Remove any border */
