@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import NoteContext from './noteContext';
@@ -9,6 +7,9 @@ const NoteState = (props) => {
   const { isLoggedIn, handleLogout } = props; // eslint-disable-line no-unused-vars
   const [notes, setNotes] = useState([]);
   const loadingBarRef = useRef(null); // Ref for the LoadingBar
+
+  // Base URL for API
+  const API_URL = 'https://inotebook-vusl.onrender.com/api';
 
   // Fetch notes from the API
   const fetchNotes = async () => {
@@ -21,7 +22,7 @@ const NoteState = (props) => {
 
     try {
       loadingBarRef.current.continuousStart(); // Start loading bar
-      const response = await axios.get('http://localhost:5000/api/notes/fetchallnotes', {
+      const response = await axios.get(`${API_URL}/notes/fetchallnotes`, {
         headers: {
           'auth-token': token, // Use dynamic token
         },
@@ -54,7 +55,7 @@ const NoteState = (props) => {
     try {
       loadingBarRef.current.continuousStart(); // Start loading bar
       const response = await axios.post(
-        'http://localhost:5000/api/notes/addnote',
+        `${API_URL}/notes/addnote`,
         { title, description, tag },
         {
           headers: {
@@ -81,7 +82,7 @@ const NoteState = (props) => {
 
     try {
       loadingBarRef.current.continuousStart(); // Start loading bar
-      await axios.delete(`http://localhost:5000/api/notes/deletenote/${id}`, {
+      await axios.delete(`${API_URL}/notes/deletenote/${id}`, {
         headers: {
           'auth-token': token, // Use dynamic token
         },
@@ -106,7 +107,7 @@ const NoteState = (props) => {
     try {
       loadingBarRef.current.continuousStart(); // Start loading bar
       const response = await axios.put(
-        `http://localhost:5000/api/notes/updatenote/${id}`,
+        `${API_URL}/notes/updatenote/${id}`,
         { title, description, tag },
         {
           headers: {

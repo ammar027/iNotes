@@ -13,7 +13,7 @@ const Login = ({ handleLogin }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/login', credentials);
+      const response = await axios.post('https://inotebook-vusl.onrender.com/api/auth/login', credentials);
 
       if (response.data && response.data.authtoken) {
         localStorage.setItem('token', response.data.authtoken);

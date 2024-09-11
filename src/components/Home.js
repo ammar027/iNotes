@@ -31,7 +31,7 @@ const Home = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/getuser', {}, {
+      const response = await axios.post('https://inotebook-vusl.onrender.com/api/auth/getuser', {}, {
         headers: {
           'auth-token': token
         }

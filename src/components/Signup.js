@@ -1,37 +1,48 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Alert from './Alert';
-import "../css/Signup.css";  
+import "../css/Signup.css";
 
-const Signup = () => {
+const Signup = ({ handleLogin }) => {
   const [credentials, setCredentials] = useState({ name: "", email: "", password: "", confirmPassword: "" });
-  const [error, setError] = useState(null);  // Use to store alert error
-  const [success, setSuccess] = useState(null);  // Use to store alert success
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
   const navigate = useNavigate();
+
+  // Base URL for API
+  const API_URL = 'https://inotebook-vusl.onrender.com/api';
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const { name, email, password, confirmPassword } = credentials;
-    
+
     if (password !== confirmPassword) {
       setError('Passwords do not match');
       return;
     }
 
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/createuser', { name, email, password });
+      const response = await axios.post(`${API_URL}/auth/createuser`, { name, email, password });
       localStorage.setItem('token', response.data.authtoken);
       setSuccess('Account created successfully!');
-      setTimeout(() => navigate('/login'), 1000);  // Redirect after success
+      setTimeout(() => navigate('/login'), 1000);
     } catch (error) {
-      setError(error.response.data.error || 'Failed to create account.');
+      setError(error.response?.data?.error || 'Failed to create account.');
     }
   };
 
   const onChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
+  };
+
+  const handleGoogleSuccess = (credentialResponse) => {
+    // Process Google signup here
+    console.log(credentialResponse);
+  };
+
+  const handleGoogleError = () => {
+    console.log('Google signup failed');
   };
 
   return (
@@ -60,11 +71,6 @@ const Signup = () => {
       {/* Display alerts */}
       {error && <Alert message={error} type="error" onClose={() => setError(null)} />}
       {success && <Alert message={success} type="success" onClose={() => setSuccess(null)} />}
-      
-      {/* Login Link */}
-      <div className="login-link">
-        Already have an account? <NavLink to="/login">Login here</NavLink>
-      </div>
     </div>
   );
 };
