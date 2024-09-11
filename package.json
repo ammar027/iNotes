@@ -22,13 +22,15 @@
     "react-top-loading-bar": "^2.3.1",
     "web-vitals": "^2.1.4"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "both": "concurrently \"npm run start\" \"nodemon backend/index.js\" "
-  },
+"scripts": {
+  "start": "node backend/index.js", 
+  "client": "react-scripts start",  
+  "dev": "concurrently \"npm run client\" \"nodemon backend/index.js\"",  
+  "build": "react-scripts build",  
+  "test": "react-scripts test",
+  "eject": "react-scripts eject"
+}
+,
   "eslintConfig": {
     "extends": [
       "react-app",
