@@ -1,6 +1,3 @@
-Here's a `README.md` template for your iNotes project:
-
-```markdown
 # iNotes - Cloud-based Note Taking App
 
 iNotes is a simple, secure, and cloud-based note-taking app where users can create, update, and delete their notes. It provides a responsive interface with light/dark theme support, user authentication, and notes stored securely in the cloud.
@@ -40,7 +37,7 @@ iNotes is a simple, secure, and cloud-based note-taking app where users can crea
    ```bash
    git clone https://github.com/ammar027/inotes.git
    cd inotes
-   ```
+
 
 2. **Setup Backend:**
 
