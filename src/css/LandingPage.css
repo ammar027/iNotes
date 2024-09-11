@@ -1,0 +1,415 @@
+/* General Styles */
+.landing-page {
+  position: relative;
+  overflow: hidden;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: linear-gradient(135deg, #fff9e6, #ffffe6); /* Light yellowish theme */
+  animation: gradientRotate 15s linear infinite;
+  background-size: 400% 400%;
+}
+
+/* Keyframes for Rotating Gradient */
+@keyframes gradientRotate {
+  0% {
+    background: linear-gradient(135deg, #fff9e6, #ffffe6);
+  }
+  25% {
+    background: linear-gradient(225deg, #ffffe6, #fff9e6);
+  }
+  50% {
+    background: linear-gradient(315deg, #fff9e6, #ffffe6);
+  }
+  75% {
+    background: linear-gradient(405deg, #ffffe6, #fff9e6);
+  }
+  100% {
+    background: linear-gradient(135deg, #fff9e6, #ffffe6);
+  }
+}
+
+body.dark-mode .landing-page {
+  background: linear-gradient(135deg, #1c1c1e, #2c2c2e);
+  animation: gradientRotateDark 15s linear infinite;
+}
+
+/* Dark Mode Gradient Keyframes */
+@keyframes gradientRotateDark {
+  0% {
+    background: linear-gradient(135deg, #1c1c1e, #2c2c2e);
+  }
+  25% {
+    background: linear-gradient(225deg, #2c2c2e, #1c1c1e);
+  }
+  50% {
+    background: linear-gradient(315deg, #1c1c1e, #2c2c2e);
+  }
+  75% {
+    background: linear-gradient(405deg, #2c2c2e, #1c1c1e);
+  }
+  100% {
+    background: linear-gradient(135deg, #1c1c1e, #2c2c2e);
+  }
+}
+
+/* Additional Styles for Transition Effects */
+.header, .content, .footer {
+  position: relative;
+  z-index: 2;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 100px 20px;
+  transition: transform 0.5s ease-out;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  max-width: 1200px;
+  width: 110%;
+  justify-content: space-between;
+}
+
+.text-block {
+  max-width: 50%;
+}
+
+.image-block {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-image {
+  width: 100%; /* Ensures the image is fully within its container */
+  height: auto; /* Maintains aspect ratio */
+  object-fit: cover; /* Ensures the image covers the area without being distorted */
+  transition: transform 0.3s ease, opacity 0.5s ease;
+}
+
+.hero-image-1 {
+  width: 367px;
+  height: 435px;
+  margin-bottom: 20px;
+  opacity: 0.9;
+}
+
+.hero-image-2 {
+  width: 300px;
+  height: auto;
+  margin-right: 30px;
+  opacity: 0.9;
+}
+
+/* Title and Description Styles */
+.title {
+  font-size: 4rem;
+  color: var(--text-color);
+  font-weight: bold;
+  line-height: 1.2;
+  margin-bottom: 20px;
+  transition: color 0.3s ease, transform 0.5s ease;
+}
+
+/* Responsive Font Sizes */
+.title, .description {
+  font-size: calc(30px + 1.5vw); /* Dynamically adjusts font size based on screen width */
+}
+
+.section {
+  padding: 2rem 1rem; /* More responsive padding */
+}
+
+.description {
+  font-size: 1.5rem;
+  color: var(--text-color-light);
+  margin-bottom: 40px;
+  transition: color 0.3s ease, transform 0.5s ease;
+}
+
+body.dark-mode .title, body.dark-mode .description {
+  color: #ffffff;
+}
+
+body.dark-mode {
+  --text-color: #ffd52e;
+  --text-color-light: #ffffff;
+}
+
+/* CTA Button Styles */
+.cta-button {
+  display: inline-block;
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  color: #fff;
+  background-color: #ffd52e;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.cta-button:hover {
+  background-color: #e6c01d;
+  transform: scale(1.05);
+}
+
+/* Dark Mode CTA Button Styles */
+body.dark-mode .cta-button {
+  color: #000; /* Change text color for dark mode */
+}
+
+body.dark-mode .cta-button:hover {
+  background-color: #e0c33f;
+}
+
+/* Typing animation */
+.blinking-cursor {
+  font-weight: 100;
+  font-size: 4rem;
+  color: #ffd52e;
+  animation: blink 0.7s infinite;
+}
+
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+/* Content Section */
+.content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 70px 20px;
+  background: linear-gradient(135deg, #fcffff, #effdff); /* Light blue background */
+  z-index: 2;
+  animation: fadeIn 1.5s ease;
+}
+
+body.dark-mode .content {
+  background: linear-gradient(135deg, #2c2c2e, #1c1c1e);
+}
+
+.explore-text {
+  max-width: 600px;
+  text-align: left;
+  padding: 5%;
+}
+
+.content h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  color: var(--text-color);
+}
+
+.content p {
+  font-size: 1.25rem;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  color: var(--text-color-light);
+}
+
+/* Features Section */
+.features {
+  background: linear-gradient(135deg, #edf7ee, #cadecb); /* Light green background */
+  padding: 70px 20px;
+  text-align: center;
+  animation: fadeIn 2s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px; /* Added space between feature items for clarity */
+}
+
+body.dark-mode .features {
+  background: linear-gradient(135deg, #2b2b2b, #1c1c1c); /* Darker gradient for dark mode */
+}
+
+.features h2 {
+  font-size: 3rem; /* Larger font size for headings */
+  color: var(--text-color);
+  margin-bottom: 2rem; /* Increased spacing */
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive grid layout */
+  gap: 40px; /* Consistent spacing */
+  padding: 0 50px; /* Padding for better alignment */
+}
+
+.feature-item {
+  background: #edffee; /* Light background for feature items */
+  border-radius: 20px; /* Rounded corners */
+  padding: 40px; /* Increased padding for better text readability */
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1); /* Subtle shadows for depth */
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); /* Smooth transition for hover effects */
+}
+
+body.dark-mode .feature-item {
+  background: #2c2c2e; /* Dark background for dark mode */
+  color: #ffffff; /* Ensuring text is readable in dark mode */
+}
+
+.feature-item:hover {
+  transform: translateY(-10px); /* Lift effect on hover */
+  box-shadow: 0 15px 30px rgba(0,0,0,0.2); /* Enhanced shadow on hover for more emphasis */
+}
+
+.feature-item .icon {
+  font-size: 3rem; /* Larger icons */
+  color: var(--text-color);
+  margin-bottom: 1.5rem; /* Space between icon and text */
+}
+
+.feature-item h3 {
+  font-size: 1.8rem; /* Adjusted for readability */
+}
+
+.feature-item p {
+  font-size: 1rem; /* Standard size for paragraph */
+  line-height: 1.6; /* Improved line spacing for readability */
+}
+
+@media (max-width: 768px) {
+  .features-grid {
+    grid-template-columns: 1fr; /* Single column layout for small screens */
+    justify-content: space-around;
+  }
+
+  .feature-item {
+    padding: 30px; /* Slightly reduced padding */
+  }
+}
+
+
+/* Media Queries for Responsiveness */
+@media (max-width: 1200px) {
+  .header-content {
+    flex-direction: column;
+    text-align: center;
+    padding-left: 3%;
+    padding-right: 3%;
+  }
+
+  .hero-image {
+    max-height: auto; /* Limits image height on small screens */
+    justify-content: space-around;
+  }
+
+  .text-block, .image-block {
+    max-width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .title {
+    font-size: 3rem;
+  }
+
+  .description {
+    font-size: 1.2rem;
+  }
+}
+
+/* Footer Styles */
+.footer {
+  padding: 20px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  animation: fadeIn 1.5s ease;
+}
+
+body.dark-mode .footer {
+  background-color: #1c1c1e;
+}
+
+/* Hover Effects */
+.hero-image:hover {
+  transform: scale(1.05);
+  opacity: 1;
+}
+
+.description:hover {
+  color: hsl(47, 100%, 59%);
+  transform: translateY(-5px);
+}
+
+.title:hover {
+  transform: translateY(-5px);
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  /* Adjust header layout to stack text and images vertically */
+  .header-content {
+    text-align: center;
+    margin-top: -6%;
+  }
+
+  /* Adjust text and image block widths for smaller screens */
+  .text-block, .image-block {
+    max-width: 100%;
+    margin-bottom: 20px;  /* Add space between elements */
+  }
+
+  /* Reduce title and description font sizes for better readability on smaller devices */
+  .title {
+    font-size: 3rem;
+  }
+
+  .description {
+    font-size: 1.2rem;
+  }
+
+  /* Adjust hero images to be more responsive and less obtrusive */
+  .hero-image-1, .hero-image-2 {
+    max-width: 80%;
+    height: auto;
+    margin: 0 auto; /* Center the images */
+  }
+
+  /* Specifically adjust the positioning of the second hero image to appear after the content */
+  .content {
+    flex-direction: column-reverse;
+    margin-top: -7%;
+  }
+
+  .hero-image-2 {
+    order: 1; /* Place hero image below the text content */
+    margin-top: 20px; /* Add some space above the image */
+  }
+
+  /* Adjust feature item layout to be single column and center align */
+}
+
+/* Adjustments for the features section to maintain visual hierarchy */
+.features h2 {
+  font-size: 2.5rem;
+}
+
+.features-grid {
+  gap: 20px; /* Add space between vertically stacked feature items */
+}
+
+/* Footer styles for better spacing on small devices */
+.footer {
+  padding: 20px;
+  text-align: center;
+}
+
+/* Enhance accessibility and interactivity */
+.hero-image:hover, .feature-item:hover, .cta-button:hover {
+  transform: scale(1.05); /* Slight scale on hover to indicate interactivity */
+  transition: transform 0.3s ease;
+}
+

@@ -8,6 +8,7 @@ import LoadingBar from "react-top-loading-bar";
 import NoteState from "./context/notes/NotesState";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
+import LandingPage from "./components/LandingPage";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -35,7 +36,8 @@ const App = () => {
         <div className="">
           <LoadingBar color="#ffd52e" />
           <Routes>
-            <Route path="/" element={<Home />} />
+            {/* If the user is logged in, show Home, otherwise show Welcome */}
+            <Route path="/" element={isLoggedIn ? <Home /> : <LandingPage />} />
             <Route path="/about" element={<About />} />
             <Route
               path="/login"
