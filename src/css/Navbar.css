@@ -219,14 +219,15 @@ body.dark-mode .navbar .auth-btn-signup:hover {
   height: 50px; /* Adjust size as needed */
   background-color: #dc3545;
   color: white;
-  padding: 0; /* Remove default padding */
-  border-radius: 50%;
+  border: none; /* Remove any border */
+  border-radius: 50%; /* Make it circular */
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: background-color 0.3s, transform 0.3s;
-  border: none; /* Remove border if any */
+  box-sizing: border-box; /* Ensure padding and border are included in the width and height */
+  padding: 0; /* Remove default padding */
 }
 
 .btn-logout:hover {
