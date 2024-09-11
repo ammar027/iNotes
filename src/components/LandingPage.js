@@ -49,7 +49,7 @@ const LandingPage = () => {
         setTypingSpeed(prev => (prev < 100 ? 50 : prev - 10));
       } else {
         setCurrentMessage(prev => currentFullMessage.slice(0, prev.length + 1));
-        setTypingSpeed(150);
+        setTypingSpeed(100);
       }
 
       if (!isDeleting && currentMessage === currentFullMessage) {

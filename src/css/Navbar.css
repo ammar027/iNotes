@@ -213,13 +213,20 @@ body.dark-mode .navbar .auth-btn-signup:hover {
   align-items: center;
 }
 
+/* Ensure button is circular */
 .btn-logout {
+  width: 50px; /* Adjust size as needed */
+  height: 50px; /* Adjust size as needed */
   background-color: #dc3545;
   color: white;
-  padding: 10px;
-  border-radius: 19px;
+  padding: 0; /* Remove default padding */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
   transition: background-color 0.3s, transform 0.3s;
+  border: none; /* Remove border if any */
 }
 
 .btn-logout:hover {
@@ -231,3 +238,9 @@ body.dark-mode .navbar .auth-btn-signup:hover {
   background-color: #bd2130;
   transform: scale(1);
 }
+
+/* FontAwesome icon size adjustment */
+.btn-logout .fa-sign-out-alt {
+  font-size: 20px; /* Adjust size if needed */
+}
+
