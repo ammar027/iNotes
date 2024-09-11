@@ -1,132 +1,162 @@
 /* Navbar Styles */
 .navbar {
-    background-color: rgb(255, 255, 255);
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(200, 200, 200, 0.3);
-    z-index: 999;
-    transition: background-color 0.3s ease, border-bottom 0.3s ease;
-  }
+  background-color: rgb(255, 255, 255);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(200, 200, 200, 0.3);
+  z-index: 999;
+  transition: background-color 0.3s ease, border-bottom 0.3s ease;
+}
 
-  .navbar-brand {
-    color: #ffd52e;
-    font-size: 1.3em;
-    font-weight: 600;
-  }
+.navbar-brand {
+  display: flex;
+  align-items: center;
+}
 
-  .nav-item {
-    font-weight: 700;
-  }
-  
-  body.dark-mode .navbar {
-    background-color: #2c2c2e;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  }
-  
-  /* Frosted Glass Effect */
-  .frosted-glass {
-    background: rgba(255, 255, 255, 0.25);
-    backdrop-filter: blur(15px);
-    border-radius: 12px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-  }
-  
-  body.dark-mode .theme-toggle {
-    position: relative;
+.navbar-brand .brand-i {
+  color: #ffd52e; /* Yellow "i" */
+  font-size: 1.3em;
+  font-weight: 600;
+}
+
+.navbar-brand .brand-notes {
+  color: #000; /* Black "Notes" */
+  font-size: 1.3em;
+  font-weight: 600;
+}
+
+body.dark-mode .navbar {
+  background-color: #2c2c2e;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+body.dark-mode .navbar-brand .brand-notes {
+  color: #ffffff; /* White "Notes" */
+}
+
+/* Theme toggle styles */
+.theme-toggle {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100px;
+  height: 40px;
+  background: #ddddddb4;
+  border-radius: 20px;
+  padding: 5px;
+  transition: background 0.3s ease;
+}
+
+body.dark-mode .theme-toggle {
+  background: #4c4c4ca1;
+}
+
+.theme-toggle input {
+  display: none;
+}
+
+.theme-toggle label {
+  flex: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  color: #2020209e;
+  transition: color 0.3s;
+}
+
+body.dark-mode .theme-toggle label {
+  color: #ffffff;
+}
+
+.toggle-thumb {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background: #ffffff;
+  border-radius: 50%;
+  top: 5px;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  z-index: 1;
+}
+
+body.dark-mode .toggle-thumb {
+  background: #333333;
+}
+
+.theme-toggle input#light:checked ~ .toggle-thumb {
+  transform: translateX(0);
+}
+
+.theme-toggle input#system:checked ~ .toggle-thumb {
+  transform: translateX(30px);
+}
+
+.theme-toggle input#dark:checked ~ .toggle-thumb {
+  transform: translateX(60px);
+}
+.theme-toggle label {
+  z-index: 2;
+}
+
+/* Navbar Toggler for Dark Mode */
+.navbar-toggler {
+  border: none;
+
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba(255, 255, 255, 0.5)' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+body.dark-mode .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba(255, 255, 255, 0.8)' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+/* Navbar Toggler Focus Styles */
+.navbar-toggler:focus {
+  outline: none; /* Remove the default outline */
+  box-shadow: 0 0 0 3px rgba(255, 213, 46, 0.5); /* Custom yellow focus shadow */
+}
+
+body.dark-mode .navbar-toggler:focus {
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5); /* White focus shadow for dark mode */
+}
+
+
+/* Responsive Navbar */
+@media (max-width: 768px) {
+  .navbar-collapse {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100px;
-    height: 40px;
-    background: #4c4c4ca1;
-    border-radius: 20px;
-    padding: 5px;
-  }
-  
-  /* toggle */
-  
-  /* Theme toggle styles */
-  .theme-toggle {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100px;
-    height: 40px;
-    background: #ddddddb4;
-    border-radius: 20px;
-    padding: 5px;
-
-  }
-  
-  .theme-toggle input {
-    display: none;
-  }
-  
-  .theme-toggle label {
-    flex: 1;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 17px;
-    color: #bababa9e;
-    transition: color 0.3s;
-  }
-  
-  .theme-toggle input:checked + label {
-    color: #242424;
-  }
-  
-  .toggle-thumb {
-    position: absolute;
-    width: 30px;
-    height: 30px;
-    background: #ffffff;
-    border-radius: 50%;
-    top: 5px;
-    transition: transform 0.3s ease;
-    z-index: 1;
-  }
-  
-  .theme-toggle input#light:checked ~ .toggle-thumb {
-    transform: translateX(0);
-  }
-  
-  .theme-toggle input#system:checked ~ .toggle-thumb {
-    transform: translateX(30px);
-  }
-  
-  .theme-toggle input#dark:checked ~ .toggle-thumb {
-    transform: translateX(60px);
-  }
-  
-  .theme-toggle label {
-    z-index: 2;
-  }
-  
-  
-  /* Responsive Navbar */
-  @media (max-width: 768px) {
-    .navbar-toggler {
-      order: 2;
-      border: none;
-    }
-  
-    .theme-toggle {
-      order: 1;
-      margin-right: 1rem;
-    }
-  
-    .navbar-collapse {
-      flex-grow: 1;
-      justify-content: flex-end;
-    }
-  
-    .navbar-toggler {
-      margin-left: auto;
-    }
+    flex-direction: column;
+    align-items: flex-start;
+    background: rgb(255, 255, 255);
+    padding: 1rem;
+    border-top: 1px solid rgba(200, 200, 200, 0.3); /* Border at the top in collapsed mode */
   }
 
+  body.dark-mode .navbar-collapse {
+    background: #2c2c2e;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .auth-buttons {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
+  }
+
+  .navbar-nav {
+    margin-top: 1rem;
+    width: 100%;
+  }
+
+  .navbar-nav .nav-item {
+    text-align: start;
+  }
+}
 
 /* Login and Signup button styles */
 .navbar .auth-btn {
@@ -137,7 +167,7 @@
   border-radius: 8px;
   font-weight: 600;
   transition: all 0.3s ease;
-  text-decoration: none; /* Ensure no underline for NavLink */
+  text-decoration: none;
 }
 
 .navbar .auth-btn:hover {
@@ -178,38 +208,27 @@ body.dark-mode .navbar .auth-btn-signup:hover {
   color: #fff;
 }
 
-
+/* Auth Buttons and Logout */
 .auth-buttons {
   display: flex;
   align-items: center;
-
 }
 
 .btn-logout {
-  display: flex;
-  align-items: center;
-  background-color: #dc3545; /* Red background color */
-  color: white; /* White text color */
-  border: none; /* Remove border */
+  background-color: #dc3545;
+  color: white;
   padding: 10px;
-  border-radius: 4px; /* Rounded corners */
-  cursor: pointer; /* Pointer cursor on hover */
-  transition: background-color 0.3s, transform 0.3s; /* Smooth transition for hover effects */
-  font-size: 18px; /* Font size */
-  font-weight: 500; /* Font weight */
-  width: fit-content;
   border-radius: 19px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
 }
 
 .btn-logout:hover {
-  background-color: #c82333; /* Darker red on hover */
-  transform: scale(1.05); /* Slightly enlarge on hover */
+  background-color: #c82333;
+  transform: scale(1.05);
 }
 
 .btn-logout:active {
-  background-color: #bd2130; /* Even darker red on click */
-  transform: scale(1); /* Reset size on click */
+  background-color: #bd2130;
+  transform: scale(1);
 }
-
-
-
