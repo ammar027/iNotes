@@ -1,17 +1,18 @@
 import React from 'react';
+import '../css/About.css';  // Assuming you have a CSS file for styling
 
 const About = () => {
   return (
     <div className="about-container">
-      <h1 className="about-title">About NewsRadar</h1>
+      <h1 className="about-title">About iNotes</h1>
       <p className="about-description">
-        NewsRadar is your go-to source for the latest headlines and breaking news from around the world. Our mission is to provide up-to-date and relevant news coverage in various categories, including technology, business, science, and more.
+        iNotes is your personal note-taking companion, designed to simplify your life and help you stay organized. Whether it's for work, personal projects, or just jotting down random thoughts, iNotes is here to make note management easy and intuitive.
       </p>
       <p className="about-description">
-        Powered by The Guardian API, NewsRadar brings you a curated selection of top stories to keep you informed and engaged. Whether you're interested in sports, culture, or the latest tech trends, we've got you covered.
+        With iNotes, you can create, edit, and categorize your notes effortlessly. It's designed with a modern, user-friendly interface, and supports both light and dark modes for a comfortable experience, day or night.
       </p>
       <p className="about-description">
-        Created and maintained by Ammar Multani, NewsRadar is committed to delivering a seamless news experience. Thank you for visiting NewsRadar. We hope you enjoy exploring the news and finding the stories that matter to you. Stay tuned for updates and new features!
+        Developed and maintained by Ammar Multani, iNotes is built to provide a reliable, secure, and efficient note-taking experience. Whether you're on the go or at your desk, iNotes is always there to help you capture your ideas.
       </p>
 
       <footer className="about-footer">
@@ -27,13 +28,8 @@ const About = () => {
               LinkedIn
             </a>
           </li>
-          {/* <li>
-            <a href="https://your-portfolio-link.com" target="_blank" rel="noopener noreferrer">
-              Portfolio
-            </a>
-          </li> */}
         </ul>
-        <p>&copy; {new Date().getFullYear()} NewsRadar. All rights reserved.</p>
+        <p>&copy; {new Date().getFullYear()} iNotes. All rights reserved.</p>
       </footer>
     </div>
   );

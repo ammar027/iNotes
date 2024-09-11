@@ -1,13 +1,15 @@
 const mongoose = require('mongoose');
-const mongoURI = "mongodb://localhost:27017/iNotes?directConnection=true&tls=false";
 
 const connectToMongo = async () => {
-    try {
-        await mongoose.connect(mongoURI);
-        console.log("Connected to Mongo successfully");
-    } catch (err) {
-        console.error("Error connecting to Mongo:", err);
-    }
+  try {
+    await mongoose.connect(process.env.MONGO_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log('Connected to MongoDB Atlas successfully');
+  } catch (error) {
+    console.error('Error connecting to MongoDB:', error.message);
+  }
 };
 
 module.exports = connectToMongo;
