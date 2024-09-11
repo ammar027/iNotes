@@ -78,7 +78,7 @@ const LandingPage = () => {
             <a href="/signup" className="cta-button">Get Started Now</a>
           </div>
           <div className="image-block">
-            <img src={heroImage1} style={{ transform: `translateX(${mousePosition.x * -0.03}px)` }} alt="Smiling Man with Laptop" className="hero-image hero-image-1" />
+            <img src={heroImage1} style={{ transform: `translateX(${mousePosition.x * -0.03}px)`} } alt="Smiling Man with Laptop" className="hero-image hero-image-1" />
           </div>
         </div>
       </header>
