@@ -8,8 +8,12 @@ connectToMongo();
 const app = express();
 const port = 5000;
 
-// Use CORS with default options
-app.use(cors());
+// backend/index.js or app.js
+const cors = require('cors');
+app.use(cors({
+  origin: 'https://ammars-inotes.vercel.app/', // Your Vercel front-end URL
+}));
+
 
 app.use(express.json());
 
