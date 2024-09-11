@@ -93,6 +93,7 @@ const Navbar = ({ isLoggedIn, handleLogout }) => {
                 About
               </NavLink>
             </li>
+            
           </ul>
         </div>
         <div className="theme-toggle align-items-center ms-1">

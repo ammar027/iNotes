@@ -36,14 +36,7 @@ const Signup = ({ handleLogin }) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
 
-  const handleGoogleSuccess = (credentialResponse) => {
-    // Process Google signup here
-    console.log(credentialResponse);
-  };
 
-  const handleGoogleError = () => {
-    console.log('Google signup failed');
-  };
 
   return (
     <div className="container my-5">
